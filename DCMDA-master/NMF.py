@@ -26,7 +26,7 @@ def generate_f1(D,train_samples,feature_md,feature_MFm, feature_MFd):
 
 
 
-def get_low_feature(k,lam, th, A):
+def get_low_feature(k, lam, th, A, check_interval=100):
     m, n = A.shape
     arr1=np.random.randint(0,100,size=(m,k))
     U = arr1/100
@@ -41,7 +41,7 @@ def get_low_feature(k,lam, th, A):
         i = i + 1
         U = updating_U(A, A, U, V, lam)
         V = updating_V(A, A, U, V, lam)
-        if i % 100 == 0:
+        if i % check_interval == 0:
             new_obj = objective_function(A, A, U, V, lam)
             if abs(new_obj - obj_value) < th:
                 break

@@ -32,6 +32,12 @@ class MultiHeadCrossAttention(layers.Layer):
 
     Uses multiple attention heads to capture diverse interaction patterns
     between the two feature streams, improving robustness over single-head attention.
+
+    Args:
+        num_heads: Number of attention heads (default 4). More heads capture
+            more diverse interaction patterns but increase parameters.
+        key_dim: Dimensionality of each attention head's key/query/value
+            projections (default 16).
     """
 
     def __init__(self, num_heads=4, key_dim=16, **kwargs):
