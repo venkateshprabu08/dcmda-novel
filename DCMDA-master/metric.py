@@ -7,7 +7,7 @@ def get_metrics(real_score, predict_score):
     sorted_predict_score_num = len(sorted_predict_score)
     thresholds = sorted_predict_score[np.int32(
         sorted_predict_score_num*np.arange(1, 2000)/2000)]
-    thresholds = np.mat(thresholds)
+    thresholds = np.asmatrix(thresholds)
     thresholds_num = thresholds.shape[1]
 
     predict_score_matrix = np.tile(predict_score, (thresholds_num, 1))
@@ -23,7 +23,7 @@ def get_metrics(real_score, predict_score):
 
     fpr = FP/(FP+TN)
     tpr = TP/(TP+FN)
-    ROC_dot_matrix = np.mat(sorted(np.column_stack((fpr, tpr)).tolist())).T
+    ROC_dot_matrix = np.asmatrix(sorted(np.column_stack((fpr, tpr)).tolist())).T
     ROC_dot_matrix.T[0] = [0, 0]
     ROC_dot_matrix = np.c_[ROC_dot_matrix, [1, 1]]
     x_ROC = ROC_dot_matrix[0].T
@@ -32,7 +32,7 @@ def get_metrics(real_score, predict_score):
 
     recall_list = tpr
     precision_list = TP/(TP+FP)
-    PR_dot_matrix = np.mat(sorted(np.column_stack(
+    PR_dot_matrix = np.asmatrix(sorted(np.column_stack(
         (recall_list, precision_list)).tolist())).T
     PR_dot_matrix.T[0] = [0, 1]
     PR_dot_matrix = np.c_[PR_dot_matrix, [1, 0]]

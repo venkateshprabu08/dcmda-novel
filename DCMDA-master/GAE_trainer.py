@@ -1,8 +1,8 @@
-import tensorflow._api.v2.compat.v1 as tf
+import tensorflow.compat.v1 as tf
 from GAE import GATE
 tf.disable_eager_execution()
 from clr import cyclic_learning_rate
-import tensorflow._api.v2.compat.v1 as tf
+import tensorflow.compat.v1 as tf
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np

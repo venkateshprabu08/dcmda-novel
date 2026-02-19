@@ -6,6 +6,20 @@
  The feature extraction module extracts features from the metabolite-disease association network based on the non-negative matrix factorization method and from the heterogeneous network using graph autoencoder technique.
  The feature fusion module combines the association matrix feature with the heterogeneous network feature through a Cross-Attention mechanism, thereby obtaining deep representations of metabolites and diseases.
 
+## Novel Enhancements
+
+This version includes several novel improvements over the base DCMDA model:
+
+1. **Multi-Head Cross-Attention Fusion** (`classifiers.py`): Replaces single-head attention with a multi-head cross-attention mechanism (4 heads, key_dim=16) that captures diverse interaction patterns between GAE and NMF feature streams, improving robustness of feature fusion.
+
+2. **Regularization via Dropout and Batch Normalization** (`classifiers.py`): Adds BatchNormalization after dense layers and Dropout (rate=0.3) to prevent overfitting, with EarlyStopping callback for training stability.
+
+3. **Graph-Based Edge Dropout Augmentation** (`main.py`): Implements edge dropout (5% rate) on the heterogeneous network during training, acting as data augmentation to improve model generalization and reduce sensitivity to specific graph edges.
+
+4. **NMF Convergence Monitoring** (`NMF.py`): Adds periodic convergence checking during NMF iterations, enabling early stopping when the objective function stabilizes, improving computational efficiency.
+
+5. **GCN.py Bug Fix**: Fixed indentation errors where `build()` and `call()` methods were outside the `GraphConvolution` class, and added missing `activation` attribute and `K` import.
+
 # Code
 The DCMDA source code is accessible for academic use at https://github.com/ChenYanxin999/DCMDA/tree/master.
 
@@ -39,6 +53,8 @@ dependencies:
 + pandas==1.1.5
 + scipy==1.5.2
 + tensorflow==2.6.2
+
+Or install via: `pip install -r requirements.txt`
 
 # Step-by-step running for DCMDA
 ### 1. Integration of similarity networks for metabolites or diseases.
